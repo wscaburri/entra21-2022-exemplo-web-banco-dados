@@ -1,4 +1,5 @@
 ﻿using Entra21.CSharp.ClinicaVeterinaria.Repositorio;
+using Entra21.CSharp.ClinicaVeterinaria.Repositorio.BancoDados;
 using Entra21.CSharp.ClinicaVeterinaria.Repositorio.Entidades;
 
 namespace Entra21.CSharp.ClinicaVeterinaria.Servico
@@ -8,9 +9,10 @@ namespace Entra21.CSharp.ClinicaVeterinaria.Servico
     {
         private RacaRepositorio racaRepositorio;
 
-        public RacaServico()
+        // Construtor: Construir o objeto de RacaServico com o mínimo para a correta execução.
+        public RacaServico(ClinicaVeterinariaContexto contexto)
         {
-            racaRepositorio = new RacaRepositorio();
+            racaRepositorio = new RacaRepositorio(contexto);
         }
 
         public void Cadastrar(string nome, string especie)
