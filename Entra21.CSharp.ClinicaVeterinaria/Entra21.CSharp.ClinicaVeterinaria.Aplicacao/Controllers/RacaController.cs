@@ -21,12 +21,12 @@ namespace Entra21.CSharp.ClinicaVeterinaria.Aplicacao.Controllers
         /// Endpoint que permite listar todas as raças
         /// </summary>
         /// <returns>Retorna a página html com as raças</returns>
-      
+
         [HttpGet("/raca")]
 
         public IActionResult ObterTodos()
         {
-            var racas = _racaServico.ObterTodos();          
+            var racas = _racaServico.ObterTodos();
 
             return View("Index", racas);
         }
@@ -47,10 +47,10 @@ namespace Entra21.CSharp.ClinicaVeterinaria.Aplicacao.Controllers
         [HttpPost("/raca/cadastrar")]
         public IActionResult Cadastrar(
             [FromForm] RacaCadastrarViewModels racaCadastrarViewModels)
-        {          
+        {
             if (!ModelState.IsValid)
             {
-                ViewBag.Especies = ObterEspecies();             
+                ViewBag.Especies = ObterEspecies();
 
                 return View(racaCadastrarViewModels);
             }
@@ -73,19 +73,33 @@ namespace Entra21.CSharp.ClinicaVeterinaria.Aplicacao.Controllers
         public IActionResult Editar([FromQuery] int id)
         {
             var raca = _racaServico.ObterPorId(id);
-            List<string> especies = ObterEspecies();
+            var especies = ObterEspecies();
 
-            ViewBag.Raca = raca;
+            var racaEditarViewModel = new RacaEditarViewModels
+            {
+                Id = raca.Id,
+                Nome = raca.Nome,
+                Especie = raca.Especie
+            };
+
             ViewBag.Especies = especies;
 
-            return View("Editar");
+            return View(racaEditarViewModel);
         }
-                
+
         [HttpPost("/raca/editar")]
 
         public IActionResult Editar(
             [FromForm] RacaEditarViewModels racaEditarViewModels)
         {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Especies = ObterEspecies();
+
+                return View(racaEditarViewModels);
+            }
+                
+
             _racaServico.Editar(racaEditarViewModels);
 
             return RedirectToAction("Index");
