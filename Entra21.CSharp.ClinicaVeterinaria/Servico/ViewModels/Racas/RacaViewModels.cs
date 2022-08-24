@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Entra21.CSharp.ClinicaVeterinaria.Servico.ViewModels
+namespace Entra21.CSharp.ClinicaVeterinaria.Servico.ViewModels.Racas
 {
     public class RacaViewModels
     {
@@ -10,7 +10,7 @@ namespace Entra21.CSharp.ClinicaVeterinaria.Servico.ViewModels
         [MaxLength(50, ErrorMessage = "{0} deve conter no máximo {1} caracteres")]
         public string Nome { get; set; }
 
-        [Display(Name ="Espécie Animal")]
+        [Display(Name = "Espécie Animal")]
         [Required(ErrorMessage = "{0} deve ser preenchido")]
         public string Especie { get; set; }
     }
